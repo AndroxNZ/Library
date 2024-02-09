@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/pico.fluid.classless.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="#" />
+  </head>
+  <body>
+    <h1 class="header">Library</h1>
+
+    <div class="container">
+      <form>
+        <!-- Grid -->
+        <div class="grid">
+          <label for="title">First name</label>
+          <input type="text" name="title" placeholder="The Hobbit" required />
+          <label for="author">Last name</label>
+          <input
+            type="text"
+            name="author"
+            placeholder="J.R.R Tolkien"
+            required
+          />
+          <label for="pages">Pages</label>
+          <input type="pages" name="pages" placeholder="295" required />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <div class="books"></div>
+      <!-- <div class="add">
+        <button class="contrast showDialog" data-target="enter-book">
+          Add Book
+        </button> -->
+        <div class="library">
+          <table>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Pages</th>
+            <th>Read</th>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- <dialog id="enter-book">
+      <article>
+        <a
+          href="#close"
+          aria-label="Close"
+          rel="prev"
+          data-target="enter-book"
+          class="close"
+        ></a>
+        <h3>Enter a new book</h3>
+
+        <form>
+          <div class="grid">
+            <label for="title">First name</label>
+            <input type="text" name="title" placeholder="The Hobbit" required />
+            <label for="author">Last name</label>
+            <input
+              type="text"
+              name="author"
+              placeholder="J.R.R Tolkien"
+              required
+            />
+            <label for="pages">Pages</label>
+            <input type="pages" name="pages" placeholder="295" required />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </article>
+    </dialog> -->
+    <script src="scripts.js"></script>
+  </body>
+</html>
