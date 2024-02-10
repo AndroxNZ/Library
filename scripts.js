@@ -6,7 +6,7 @@ console.log(myLibrary[0]);
 let title, author, pages, read;
 const showDialog = document.querySelector(".showDialog");
 const enterBookDialog = document.querySelector("#enter-book");
-const closeButton = document.querySelector(".close");
+const deleteButton = document.querySelector(".close");
 const submitButton = document.querySelector("button[type='submit'");
 const library = document.querySelector(".library");
 
@@ -15,9 +15,9 @@ function Book(title, author, pages) {
   this.author = author;
   this.pages = pages;
   this.read = null;
-  this.info = function () {
-    console.log(`${this.title} by ${this.author}, ${pages} pages, ${read}`);
-  };
+  // this.info = function () {
+  //   console.log(`${this.title} by ${this.author}, ${pages} pages, ${read}`);
+  // };
 }
 // Book.prototype.hasRead() {
 //     read === true ? false : true;
@@ -28,30 +28,37 @@ function addBookToLibrary() {
   pages = parseInt(document.querySelector('input[name="pages"]').value);
   let book = new Book(title, author, pages, read);
   myLibrary.push(book);
-  enterBookDialog.close();
+  addBook(book);
   console.log(book);
   console.log(myLibrary);
 }
-// function displayBooks() {
-//     myLibrary.forEach(book) {
-//       let div = createElement('div');
-//       for (let prop in book) {
-//         let currentElement = createElement('p');
-//         currentElemenet.innerText = book.prop;
-//         div.appendChild(currentElemenet);
-//       }
-//       library.appendChild(div);
-//     }
-// }
+function displayBooks() {
+  let tableBody = document.querySelector("tbody");
+  for (let entry of myLibrary) {
+    let tableRow = document.createElement("tr");
+    for (let prop in entry) {
+      let currentElement = document.createElement("td");
+      currentElement.innerText = entry[prop];
+      // console.log(`curent prop is ${entry.prop}`);
+      tableRow.appendChild(currentElement);
+    }
+    tableBody.appendChild(tableRow);
+  }
+}
 
-// displayBooks();
-showDialog.addEventListener("click", () => {
-  enterBookDialog.showModal();
-});
+displayBooks();
+function addBook(book) {
+  let tableBody = document.querySelector("tbody");
+  let tableRow = document.createElement("tr");
+  for (let prop in book) {
+    let currentElement = document.createElement("td");
+    currentElement.innerText = book[prop];
+    // console.log(`curent prop is ${entry.prop}`);
+    tableRow.appendChild(currentElement);
+  }
+  tableBody.appendChild(tableRow);
+}
 
-closeButton.addEventListener("click", () => {
-  enterBookDialog.close();
-});
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
   addBookToLibrary();
