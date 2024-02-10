@@ -15,16 +15,17 @@
         <!-- Grid -->
         <div class="grid">
           <label for="title">First name</label>
-          <input type="text" name="title" placeholder="The Hobbit" required />
+          <input type="text" name="title" minlength="3" placeholder="Dune" required />
           <label for="author">Last name</label>
           <input
             type="text"
             name="author"
-            placeholder="J.R.R Tolkien"
+            minlength="3"
+            placeholder="Frank Herbert"
             required
           />
           <label for="pages">Pages</label>
-          <input type="pages" name="pages" placeholder="295" required />
+          <input type="number" name="pages" minlength="1" placeholder="896" required />
         </div>
         <button type="submit">Submit</button>
       </form>
@@ -44,12 +45,6 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Magician</td>
-                <td>Raymand</td>
-                <td>567</td>
-                <td>true</td>
-              </tr>
             </tbody>
           </table>
         </div>
