@@ -8,6 +8,7 @@ let title, author, pages, read;
 const deleteButton = document.querySelector(".close");
 const submitButton = document.querySelector("button[type='submit'");
 const library = document.querySelector(".library");
+const tableBody = document.querySelector("tbody");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -15,13 +16,21 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = false;
   // this.info = function () {
-  //   console.log(`${this.title} by ${this.author}, ${pages} pages, ${read}`);
+  //   console.log(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
   // };
 }
-Object.defineProperty(Book.prototype, "hasRead", {
-  enumerable: false,
-  value: function () {
-    this.read === true ? false : true;
+Object.defineProperties(Book.prototype, {
+  hasRead: {
+    value: function () {
+      this.read === true ? (this.read = false) : (this.read = true);
+    },
+  },
+  info: {
+    value: function () {
+      console.log(
+        `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`
+      );
+    },
   },
 });
 function addBookToLibrary() {
@@ -35,12 +44,14 @@ function addBookToLibrary() {
   console.log(myLibrary);
 }
 function displayBooks() {
-  let tableBody = document.querySelector("tbody");
   while (tableBody.firstChild) {
     tableBody.removeChild(tableBody.firstChild);
   }
   for (let entry of myLibrary) {
     let tableRow = document.createElement("tr");
+    let index = document.createElement("td");
+    tableRow.appendChild(index);
+    index.innerText = myLibrary.indexOf(entry) + 1;
     for (let prop in entry) {
       let currentElement = document.createElement("td");
       currentElement.innerText = entry[prop];
@@ -49,34 +60,36 @@ function displayBooks() {
     }
     let delButton = document.createElement("button");
     delButton.innerText = "Delete";
+    delButton.setAttribute("class", "delete");
     tableRow.appendChild(delButton);
     let readStatus = document.createElement("button");
     readStatus.innerText = "Toggle Read";
+    readStatus.setAttribute("class", "toggle");
     tableRow.appendChild(readStatus);
     tableBody.appendChild(tableRow);
   }
-  let delButtons = library.querySelectorAll("button");
+  let delButtons = document.querySelectorAll("button.delete");
   delButtons.forEach((btn) => {
     btn.addEventListener("click", (event) => {
+      let index = parseInt(event.target.parentElement.firstChild.innerText) - 1;
+      myLibrary.splice(index, 1);
       event.target.closest("tr").remove();
     });
   });
+  let toggleButtons = document.querySelectorAll("button.toggle");
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      let index = parseInt(event.target.parentElement.firstChild.innerText) - 1;
+      myLibrary[index].hasRead();
+      event.target.previousSibling.previousSibling.innerText =
+        myLibrary[index].read;
+    });
+  });
 }
-displayBooks();
-
-// function addBook(book) {
-//   let tableBody = document.querySelector("tbody");
-//   let tableRow = document.createElement("tr");
-//   for (let prop in book) {
-//     let currentElement = document.createElement("td");
-//     currentElement.innerText = book[prop];
-//     // console.log(`curent prop is ${entry.prop}`);
-//     tableRow.appendChild(currentElement);
-//   }
-//   tableBody.appendChild(tableRow);
-// }
 
 submitButton.addEventListener("click", (event) => {
-  addBookToLibrary();
   event.preventDefault();
+  addBookToLibrary();
 });
+
+displayBooks();
