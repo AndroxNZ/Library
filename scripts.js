@@ -3,7 +3,6 @@ const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, true);
 const LOTRs = new Book("The Lord of the Rings", "J.R.R Tolkien", 1178, true);
 myLibrary.push(theHobbit, LOTRs);
 console.log(myLibrary[0]);
-let title, author, pages, read;
 
 const deleteButton = document.querySelector(".close");
 const submitButton = document.querySelector("button[type='submit'");
@@ -15,9 +14,6 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = false;
-  // this.info = function () {
-  //   console.log(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
-  // };
 }
 Object.defineProperties(Book.prototype, {
   hasRead: {
@@ -55,7 +51,6 @@ function displayBooks() {
     for (let prop in entry) {
       let currentElement = document.createElement("td");
       currentElement.innerText = entry[prop];
-      // console.log(`curent prop is ${entry.prop}`);
       tableRow.appendChild(currentElement);
     }
     let delButton = document.createElement("button");
@@ -79,7 +74,8 @@ function displayBooks() {
   let toggleButtons = document.querySelectorAll("button.toggle");
   toggleButtons.forEach((btn) => {
     btn.addEventListener("click", (event) => {
-      let index = parseInt(event.target.parentElement.firstChild.innerText) - 1;
+      // Showing alternative way compared to the Delete Button version.
+      let index = event.target.parentNode.rowIndex - 1;
       myLibrary[index].hasRead();
       event.target.previousSibling.previousSibling.innerText =
         myLibrary[index].read;
